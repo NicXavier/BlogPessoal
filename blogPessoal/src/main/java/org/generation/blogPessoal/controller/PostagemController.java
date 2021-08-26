@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController 
-@RequestMapping("/postagens")
+@RequestMapping("/posts")
 @CrossOrigin("*")
 public class PostagemController {
 
@@ -31,7 +31,7 @@ public class PostagemController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<PostagemModel> GetByID(@PathVariable long id){
+	public ResponseEntity<PostagemModel> GetByID(@PathVariable Long id){
 		return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
 			 .orElse(ResponseEntity.notFound().build());
 	}
@@ -54,7 +54,7 @@ public class PostagemController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable long id) {
+	public void delete(@PathVariable Long id) {
 		repository.deleteById(id);
 	}
 
