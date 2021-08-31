@@ -15,7 +15,7 @@ import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "theme")
-public class Theme {
+public class ThemeModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,8 +40,8 @@ public class Theme {
 		return description;
 	}
 
-	public void setDescription(String descricao) {
-		this.description = descricao;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public List<PostagemModel> getPostagem() {

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -34,14 +35,18 @@ public class PostagemModel {
 	private Date date = new java.sql.Date(System.currentTimeMillis());
 	
 	@ManyToOne
-	@JsonIgnoreProperties("post")
-	private Theme theme;
+	@JoinColumn(name = "theme_id")
+	private ThemeModel theme;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private UserModel name;
 		
-	public Theme getTheme() {
+	public ThemeModel getTheme() {
 		return theme;
 	}
 
-	public void setTheme(Theme theme) {
+	public void setTheme(ThemeModel theme) {
 		this.theme = theme;
 	}
 
@@ -81,12 +86,20 @@ public class PostagemModel {
 		this.date = date;
 	}
 
-	public Theme getTema() {
+	public ThemeModel getTema() {
 		return theme;
 	}
 
-	public void setTema(Theme theme) {
+	public void setTema(ThemeModel theme) {
 		this.theme = theme;
+	}
+
+	public UserModel getName() {
+		return name;
+	}
+
+	public void setName(UserModel name) {
+		this.name = name;
 	}
 	
 	

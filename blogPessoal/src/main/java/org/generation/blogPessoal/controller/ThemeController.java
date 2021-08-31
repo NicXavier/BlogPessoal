@@ -3,11 +3,11 @@ package org.generation.blogPessoal.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.generation.blogPessoal.Services.ThemeServices;
-import org.generation.blogPessoal.model.Theme;
+import javax.validation.Valid;
+
+import org.generation.blogPessoal.model.ThemeModel;
 import org.generation.blogPessoal.repository.ThemeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,38 +26,59 @@ public class ThemeController {
 	
 	@Autowired 
 	private ThemeRepository repository;
-	@Autowired
-	private ThemeServices services;
+
 	
 	@GetMapping
-	public ResponseEntity<List<Theme>> getAll(){
-		return ResponseEntity.ok(repository.findAll());
+	public ResponseEntity<List<ThemeModel>> getAll(){
+		List<ThemeModel> objectList = repository.findAll();
+		
+		if (objectList.isEmpty()) {
+			return ResponseEntity.status(204).build();
+		} else
+		{
+			return ResponseEntity.status(200).body(objectList);
+		}
+		
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Theme> getById(@PathVariable Long id){
-		return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
-				 .orElse(ResponseEntity.notFound().build());
+	public ResponseEntity<ThemeModel> getById(@PathVariable (value = "id") Long id){
+		Optional<ThemeModel> objectList = repository.findById(id);
+		
+		if (objectList.isPresent()) {
+			return ResponseEntity.status(200).body(objectList.get());
+		} else
+		{
+			return ResponseEntity.status(200).build();
+		}
+		
 	}
 	
-	@GetMapping("/name/{name}")
-	public ResponseEntity<Optional<Theme>> getByName(@PathVariable String name){
-		ResponseEntity<Optional<Theme>> Obj = services.getByTheme(name);
-		return Obj;
+	@GetMapping("/description/{description}")
+	public ResponseEntity<List<ThemeModel>> getByDescription(@PathVariable (value = "description") String description){
+		List<ThemeModel> objectList = (repository.findAllByDescriptionContainingIgnoreCase(description));
+		
+		if(objectList.isEmpty()) 
+		{
+			return ResponseEntity.status(204).build();
+		} else
+		{
+			return ResponseEntity.status(200).body(objectList);
+		}
 	}
 	
-	@PostMapping
-	public ResponseEntity<Theme> post(@RequestBody Theme theme){
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(theme));
+	@PostMapping("/save")
+	public ResponseEntity<ThemeModel> post (@Valid @RequestBody ThemeModel theme){
+		return ResponseEntity.status(201).body(repository.save(theme));
 	}
 	
 	@PutMapping
-	public ResponseEntity<Theme> put (@RequestBody Theme theme){
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(theme));
+	public ResponseEntity<ThemeModel> put (@Valid @RequestBody ThemeModel theme){
+		return ResponseEntity.status(201).body(repository.save(theme));				
 	}
 	
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Long id) {
+	public void delete(@PathVariable (value = "id") long id) {
 		repository.deleteById(id);
 	}
 }
