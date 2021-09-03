@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import utilitiymodels.UserDTO;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -56,6 +58,18 @@ public class UserController {
 		}
 	}
 	
+	@PutMapping("/credentials")
+	public ResponseEntity<Object> credentials(@Valid @RequestBody UserDTO userToAuthenticate ){
+		Optional <?> objectOptional = services.catchCredentials(userToAuthenticate);
+		
+		if (objectOptional.isEmpty())
+		{
+			return ResponseEntity.status(400).build();
+		} else
+		{
+			return ResponseEntity.status(201).body(objectOptional.get());
+		}
+	}
 	@GetMapping("/{id}")
 	public ResponseEntity<UserModel> GetById (@PathVariable (value = "id") Long id){
 		Optional <UserModel> objectUser = repository.findById(id);
