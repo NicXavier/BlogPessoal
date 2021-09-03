@@ -16,6 +16,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private UserDetailsServiceImplements service;
+	
 	@Bean
 	public PasswordEncoder passwordenceoder()
 	{

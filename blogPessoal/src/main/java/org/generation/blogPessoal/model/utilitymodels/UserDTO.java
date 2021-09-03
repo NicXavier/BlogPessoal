@@ -1,11 +1,9 @@
-package utilitiymodels;
+package org.generation.blogPessoal.model.utilitymodels;
 
-import javax.persistence.Entity;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-@Entity
 public class UserDTO{
 	
 	@NotBlank
@@ -15,6 +13,8 @@ public class UserDTO{
 	private Long id;
 	private String name;
 	private String token;
+	
+	@NotBlank
 	private String password;
 	
 	public String getEmail() {
