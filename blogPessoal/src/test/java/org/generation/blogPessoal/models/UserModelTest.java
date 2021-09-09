@@ -1,5 +1,7 @@
 package org.generation.blogPessoal.models;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -34,21 +36,13 @@ class UserTest {
 		assertTrue (violationObj.isEmpty());
 	}
 	
-	
-	private void assertTrue(boolean empty) {
-		// TODO Auto-generated method stub
-		
-	}
 	@Test
 	void validateWrongUserReturnsFalse() {
 		UserModel failedUser = new UserModel("", "bruce@gmail.com", "123456");
 		Set<ConstraintViolation<UserModel>> violationObj = validator.validate(failedUser);
 		assertFalse(violationObj.isEmpty());
 	}
-	private void assertFalse(boolean empty) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 
 
