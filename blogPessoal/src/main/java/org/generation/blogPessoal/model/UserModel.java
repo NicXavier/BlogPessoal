@@ -47,6 +47,10 @@ public class UserModel {
 		this.password = password;
 	}
 
+	public UserModel(long l, String string, String string2, String string3) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Long getId() {
 		return id;
 	}
