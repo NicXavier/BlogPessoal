@@ -39,6 +39,14 @@ public class UserModel {
 	@JsonIgnoreProperties ({"creator"})
 	private List<PostagemModel> myposts = new ArrayList<>();
 
+			
+	public UserModel(@NotBlank String name, @NotBlank @Email String email, @NotBlank @Size(min = 5) String password) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.password = password;
+	}
+
 	public Long getId() {
 		return id;
 	}
