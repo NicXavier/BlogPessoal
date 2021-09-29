@@ -16,6 +16,8 @@ public class UserDTO{
 	
 	@NotBlank
 	private String password;
+	private String photo;
+	private String type;
 	
 	public String getEmail() {
 		return email;
@@ -47,6 +49,19 @@ public class UserDTO{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+			this.photo = photo;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 	
 	
 	

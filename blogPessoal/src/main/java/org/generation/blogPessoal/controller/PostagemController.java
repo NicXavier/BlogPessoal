@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
 
-import org.generation.blogPessoal.model.PostagemModel;
+import org.generation.blogPessoal.model.PostModel;
 import org.generation.blogPessoal.repository.PostagemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,17 +19,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/posts")
 @CrossOrigin("*")
+@Api(tags = "PostController")
 public class PostagemController {
 
 	@Autowired
 	private PostagemRepository repository;
 	
 	@GetMapping 
-	public ResponseEntity<List<PostagemModel>> getAll(){
-		List<PostagemModel> objetoLista = repository.findAll();
+	public ResponseEntity<List<PostModel>> getAll(){
+		List<PostModel> objetoLista = repository.findAll();
 		
 		if (objetoLista.isEmpty()) {
 			
@@ -40,13 +43,13 @@ public class PostagemController {
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<PostagemModel> post (@Valid @RequestBody PostagemModel  newPost){
+	public ResponseEntity<PostModel> post (@Valid @RequestBody PostModel  newPost){
 		return ResponseEntity.status(201).body(repository.save(newPost));
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<PostagemModel> GetByID(@PathVariable (value = "id") Long idPost) {
-		Optional<PostagemModel> objetoPostagemModel = repository.findById(idPost);
+	public ResponseEntity<PostModel> GetByID(@PathVariable (value = "id") Long idPost) {
+		Optional<PostModel> objetoPostagemModel = repository.findById(idPost);
 		 	
 		if (objetoPostagemModel.isPresent()) {
 			
@@ -56,8 +59,8 @@ public class PostagemController {
 	}
 
 	@GetMapping("/title/{title}")
-	public ResponseEntity<List<PostagemModel>> GetByTitle(@PathVariable (value = "title") String title){
-		List<PostagemModel> objetoLista = repository.findAllByTitleContainingIgnoreCase(title);
+	public ResponseEntity<List<PostModel>> GetByTitle(@PathVariable (value = "title") String title){
+		List<PostModel> objetoLista = repository.findAllByTitleContainingIgnoreCase(title);
 		
 		if (objetoLista.isEmpty()) {
 			
@@ -68,8 +71,8 @@ public class PostagemController {
 	}
 
 	@PostMapping("/search")
-	public ResponseEntity<List<PostagemModel>> post(@RequestParam(value = "text") String text) {
-		List<PostagemModel> objetoLista = repository.findAllByTextContainingIgnoreCase(text);
+	public ResponseEntity<List<PostModel>> post(@RequestParam(value = "text") String text) {
+		List<PostModel> objetoLista = repository.findAllByTextContainingIgnoreCase(text);
 
 		if (objetoLista.isEmpty()) {
 
@@ -81,7 +84,7 @@ public class PostagemController {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<PostagemModel> put(@RequestBody PostagemModel postagem) {
+	public ResponseEntity<PostModel> put(@RequestBody PostModel postagem) {
 		return ResponseEntity.status(201).body(repository.save(postagem));
 
 	}

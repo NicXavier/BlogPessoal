@@ -29,6 +29,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 		.authorizeRequests()
 		  	.antMatchers(HttpMethod.POST, "/user/save").permitAll()
 		  	.antMatchers(HttpMethod.PUT, "/user/credentials").permitAll()
+		  	.antMatchers(HttpMethod.OPTIONS).permitAll()
 		  	.anyRequest().authenticated()
 		  	.and().httpBasic()
 		  	.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -40,6 +41,10 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure (AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(service);
+		auth.inMemoryAuthentication()
+		.withUser("root")
+		.password(passwordencoder().encode("root"))
+		.authorities("ROLE_USER");
 		
 	}
 	

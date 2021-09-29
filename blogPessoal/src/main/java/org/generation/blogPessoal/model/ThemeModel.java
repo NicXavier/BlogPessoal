@@ -26,7 +26,7 @@ public class ThemeModel {
 	
 	@OneToMany(mappedBy = "theme", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("theme")
-	private List<PostagemModel> postagem;
+	private List<PostModel> postagem;
 
 	public Long getId() {
 		return id;
@@ -44,11 +44,11 @@ public class ThemeModel {
 		this.description = description;
 	}
 
-	public List<PostagemModel> getPostagem() {
+	public List<PostModel> getPostagem() {
 		return postagem;
 	}
 
-	public void setPostagem(List<PostagemModel> postagem) {
+	public void setPostagem(List<PostModel> postagem) {
 		this.postagem = postagem;
 	}
 	

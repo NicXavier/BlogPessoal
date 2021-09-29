@@ -18,7 +18,7 @@ import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "posts")
-public class PostagemModel {
+public class PostModel {
  
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,13 +35,21 @@ public class PostagemModel {
 	private Date date = new java.sql.Date(System.currentTimeMillis());
 	
 	@ManyToOne
-	@JoinColumn(name = "theme_id")
+	@JsonIgnoreProperties("postModel")
 	private ThemeModel theme;
 	
 	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private UserModel name;
+	@JsonIgnoreProperties("postModel")
+	private UserModel user;
 		
+	public UserModel getUser() {
+		return user;
+	}
+
+	public void setUser(UserModel user) {
+		this.user = user;
+	}
+
 	public ThemeModel getTheme() {
 		return theme;
 	}
@@ -95,11 +103,11 @@ public class PostagemModel {
 	}
 
 	public UserModel getName() {
-		return name;
+		return user;
 	}
 
 	public void setName(UserModel name) {
-		this.name = name;
+		this.user = user;
 	}
 	
 	

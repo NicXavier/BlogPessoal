@@ -43,6 +43,8 @@ public class UserServices{
 				userToAuthenticate.setId(userExistent.getId());
 				userToAuthenticate.setName(userExistent.getName());
 				userToAuthenticate.setPassword(userExistent.getPassword());
+				userToAuthenticate.setPhoto(userExistent.getPhoto());
+				userToAuthenticate.setType(userExistent.getType());
 				return Optional.ofNullable(userToAuthenticate);
 				
 			}
